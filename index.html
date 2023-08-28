@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>The Downtown Cafe </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <style>
+        body {
+          
+          transition: background-color 0.3s, color 0.3s;
+        }
+      
+        .dark-mode {
+          background-color: #d20505;
+          color: #571301;
+        }
+      
+        .light-mode {
+          background-color: #ffffff;
+          color: #860404;
+        }
+      
+        .toggle-container {
+          display: flex;
+          align-items: center;
+          margin-top: 20px;
+        }
+      
+        .toggle-label {
+          margin-left: 20px;
+        }
+    
+        .clock {
+  --clock-size: 300px;
+  width: var(--clock-size);
+  height: var(--clock-size);
+  position: absolute;
+  top: 78%; /* Vertically center the clock */
+  left: 35%; /* Horizontally center the clock */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  border-radius: 0%; /* Reset border-radius */
+  z-index: 0; /* Place behind other content */
+}
+
+
+.spike {
+  position: absolute;
+  width: 8px;
+  height: 1px;
+  background: rgba(82, 1, 55, 0.6);
+  line-height: 20px;
+  transform-origin: 50%;
+  z-index: 5;
+  inset: 0;
+  margin: auto;
+  font-style: normal;
+  transform: rotate(var(--rotate)) translateX(var(--dail-size));
+}
+.spike:nth-child(5n+1) {
+  box-shadow: -7px 0 #fff9;
+}
+.spike:nth-child(5n+1):after {
+  content: attr(data-i);
+  position: absolute;
+  right: 22px;
+  top: -10px;
+  transition: 1s linear;
+  transform: rotate(calc( var(--dRotate) - var(--rotate)));
+}
+
+.seconds {
+  --dRotate: 0deg;
+  --dail-size: calc((var(--clock-size)/ 2) - 8px);
+  font-weight: 800;
+  font-size: 18px;
+  transform: rotate(calc( -1 * var(--dRotate)));
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  transition: 1s linear;
+}
+
+.minutes {
+  --dail-size: calc((var(--clock-size)/ 2) - 65px);
+  font-size: 16px;
+  transform: rotate(calc( -1 * var(--dRotate)));
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  transition: 1s linear;
+}
+
+.stop-anim {
+  transition: 0s linear;
+}
+.stop-anim .spike:after {
+  transition: 0s linear !important;
+}
+
+.hour {
+  font-size: 70px;
+  font-weight: 900;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.minute {
+  font-size: 36px;
+  font-weight: 900;
+  position: absolute;
+  background: #000;
+  z-index: 10;
+  right: calc(var(--clock-size)/ 4.5);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.minute:after {
+  content: "";
+  position: absolute;
+  border: 2px solid #fff;
+  border-right: none;
+  height: 50px;
+  left: -10px;
+  top: 50%;
+  border-radius: 40px 0 0 40px;
+  width: calc(var(--clock-size)/ 2.75);
+  transform: translatey(-50%);
+}
+</style>
+</head>
+      
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <body class="light-mode">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h5 class="text-primary m-0 text-center">
+                        <i class='fa fa-1x fa-utensils' style='color: red'></i>
+                        <span style='color: rgb(51, 207, 207)'>The Downtown Cafe :- <br>Where Every Dish Tells a Story</span>
+                    </h5>
+                    
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="service.html" class="nav-item nav-link">Service</a>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="menu.html" class="nav-item nav-link">Menu</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="img\menu.pdf" class="dropdown-item">All Menu List</a>
+                                <a href="booking.html" class="dropdown-item">Booking</a>
+                                <a href="team.html" class="dropdown-item">Our Team</a>
+                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div><a href="booking.html" class="btn btn-primary py-0 px-0">Book A Table</a></div>
+               
+                    <div class="toggle-label"></div>
+                        <label class="switch">
+                        <div>
+                                <button class="theme-toggle py-0 px-0" style="color: rgb(97, 2, 2); background-color: rgb(193, 17, 17); border-color: rgb(173, 40, 40);">
+                                    Switch Theme
+                                </button>
+                            </div>
+                        <span class="slider"></span>
+                        </label>
+                        <audio id="myAudio" autoplay>
+                            <source src="img/MLC.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        
+                        <script>
+                        const audioElement = document.getElementById('myAudio');
+                        
+                        // Set a listener for the 'ended' event to start playing from the 10-second mark
+                        audioElement.addEventListener('ended', function() {
+                            // After the second play-through, start from the 10-second mark
+                            audioElement.currentTime = 6;
+                            audioElement.play();
+                            
+
+                            
+                        });
+                        </script>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-xxl py-3 bg-dark hero-header mb-4">
+                <div class="container my-3 py-3">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            
+                            <h1 class="display-3 text-white animated slideInLeft red-text" style="font-size: 3rem;">
+                                Enjoy Your<br>Delicious Meal
+                                
+                            </h1>      
+                        <br>
+                        </br>                      
+                            <p class="text-white animated slideInLeft mb-4 pb-2 red-text" style="font-size: 2rem;">We look forward to welcoming you to The Downtown Cafe. To secure your table, we recommend you to make a reservation in advance.</p>
+                        <br>
+                        </br>
+                            <a href="booking.html" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+                        </div>
+                        <div class="col-lg-6 text-center text-lg-end overflow-hidden">
+                            <img class="img-fluid" src="img/hero.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <second class="clock">
+            <div class="seconds"></div>
+            <div class="minutes"></div>
+            <div class="minute">44</div>
+            <div class="hour"></div>
+          </second>
+        <!-- Navbar & Hero End -->
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i class='fa fa-3x fa-user-circle' style='color: rgb(57, 7, 137)' text-primary mb-4></i>
+                                <h5>Our Master Chefs</h5>
+                                <p>Meet the talented individuals behind the scenes who bring magic to your dining experience. Our chefs are passionate about their craft, creating dishes that reflect their dedication to culinary artistry. Our front-of-house team takes pride in providing impeccable service, ensuring your comfort and satisfaction throughout your visit.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i i class='fa fa-3x fa-utensils' style='color: red'  text-primary mb-4></i>
+                                <h5>Quality Food</h5>
+                                <p> we take immense pride in the quality of food we serve. From the moment our chefs select the freshest ingredients to the meticulous preparation of each dish, our commitment to excellence shines through in every bite. We believe that the foundation of a remarkable dining experience  and a passion for culinary artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i i class='fa fa-3x fa-cart-plus' style='color: blue' text-primary mb-4></i>
+                                <h5>Online Order</h5>
+                                <p>Whether you're planning a cozy night in, hosting a small gathering, or simply craving your favorite dish, our online ordering platform makes it easy to satisfy your hunger cravings with just a few clicks. Our dedicated staff ensures that your order is carefully packaged and ready for delivery while adhering all necessary & safety guidelines.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i class='fa fa-3x fa-phone-volume' style='color: rgb(154, 124, 5)' text-primary mb-4></i>
+                                <h5>24/7 Service</h5>
+                                <p>We understand that cravings can strike at any hour, and that's why we are proud to offer our top-notch service around the clock. Whether it's an early morning breakfast, a late-night snack, or anything in between, we've got you covered! With our user-friendly online ordering platform, you can place your order 24/7.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="img/about-2.jpg" style="margin-top: 25%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="img/about-3.jpg">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="img/about-4.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5 class="section-title ff-secondary text-start fw-normal" style="color: red;">
+                            About Us
+                        </h5>
+                        
+                        <h1 class="mb-4">Welcome to <i class='fa fa-1x fa-utensils' style='color: red' > </i>  The Downtown Cafe</h1>
+                        <p class="mb-4">We are passionate about creating memorable dining experiences for our guests. Our talented team of chefs and dedicated staff work tirelessly to provide you with the finest and freshest ingredients, ensuring each dish is a celebration of flavors and textures.</p>
+                        <p class="mb-4">Indulge your taste buds with our thoughtfully crafted menu, inspired by both local and international cuisines. From sizzling starters to delectable mains and irresistible desserts, our culinary offerings are designed to satisfy every palate. We take pride in offering a range of options, including vegetarian, vegan, and gluten-free choices, ensuring there's something delightful for everyone.</p>
+                        <div class="row g-4 mb-4">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary px-3" style="border-color: rgb(161, 48, 4);">
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" style="color: rgb(78, 2, 74);" data-toggle="counter-up">25</h1>
+                                    <div class="ps-4">
+                                        <p class="mb-0" style="color: rgb(76, 2, 56);">Years of</p>
+                                        <h6 class="text-uppercase mb-0" style="color: rgb(2, 81, 87);">Experience</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary px-3" style="border-color: rgb(5, 10, 5);">
+                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" style="color: red;" data-toggle="counter-up">
+                                        30
+                                    </h1>
+                                    
+                                    <div class="ps-4">
+                                        <p class="mb-0" style="color: rgb(2, 123, 10);">Outstanding</p>
+                                        <h6 class="text-uppercase mb-0" style="color: rgb(60, 2, 43);">Master Chefs</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Menu Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center fw-normal" style="color: red;">
+                        Food Menu
+                    </h5>
+                    
+                    <h1 class="mb-5">Our Famous Items</h1>
+                </div>
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+                                <i class='fa fa-2x fa-hamburger' style='color: rgb(3, 93, 50)' fa-2x text-primary></i>
+                                <div class="ps-3">
+                                    <small class="text-body">Beloved</small>
+                                    <h6 class="mt-n1 mb-0">Starters</h6>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
+                                <i class='fa fa-2x fa-life-ring' style='color: rgb(64, 1, 41)'></i>
+                                <div class="ps-3">
+                                    <small class="text-body">Main</small>
+                                    <h6 class="mt-n1 mb-0">Dishes</h6>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+                                <i class='fa fa-2x fa-utensils' style='color: red' fa-2x text-primary></i>
+                                <div class="ps-3">
+                                    <small class="text-body">Special</small>
+                                    <h6 class="mt-n1 mb-0">Bevarages</h6>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="row g-4">
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/maggi.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Plain Maggi</span>
+                                                <span class="text-primary" style="color: red;">
+                                                    ₹ 50
+                                                </span>
+                                                
+                                            </h5>
+                                            <small class="fst-italic">Maggi noodles, a beloved instant noodle dish, might not typically be associated with fine dining, but some creative restaurants have elevated its presentation and flavors, offering a unique and nostalgic experience for customers</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/bur.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Cheese Burger</span>
+                                                <span class="text-primary">₹ 60</span>
+                                            </h5>
+                                            <small class="fst-italic">The burger is a popular fast-food item and versatile dish. A cheeseburger is a classic American dish consisting of a cooked beef patty, typically with melted cheese, served in a sliced bun.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/nood.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Veg Noodles</span>
+                                                <span class="text-primary">₹ 80</span>
+                                            </h5>
+                                            <small class="fst-italic">Veg noodles are a popular dish made from boiled or stir-fried noodles combined with a variety of vegetables and often flavored with sauces or seasonings, creating a flavorful and nutritious meal.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/chole k.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Chhole Kulche</span>
+                                                <span class="text-primary">₹ 40</span>
+                                            </h5>
+                                            <small class="fst-italic">Chole kulche is a North Indian dish consisting of spicy chickpea curry (chole) served with soft and fluffy bread made from refined flour (kulcha), often accompanied by onions, green chilies, and chutneys.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/white s.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>White Sauce Pasta</span>
+                                                <span class="text-primary">₹ 110</span>
+                                            </h5>
+                                            <small class="fst-italic">White sauce pasta is a creamy Italian dish made by combining cooked pasta with a rich and velvety white sauce, usually consisting of butter, flour, milk, and cheese, resulting in a comforting and indulgent meal.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/french f.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>French Fries</span>
+                                                <span class="text-primary">₹ 80</span>
+                                            </h5>
+                                            <small class="fst-italic">French fries are a most popular side dish made from sliced and deep fried potatoes, usually seasoned with salt, and enjoyed for their crispy texture and also with savory flavor.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/chilly po.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Chilli Potato</span>
+                                                <span class="text-primary">₹ 90</span>
+                                            </h5>
+                                            <small class="fst-italic">Chilli potatoes are a flavorful Indo-Chinese appetizer made by coating fried potato wedges in a spicy and tangy sauce, often garnished with onions, bell peppers, and spring onions.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/piza.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Onion & Capsicum Pizza</span>
+                                                <span class="text-primary">₹ 120</span>
+                                            </h5>
+                                            <small class="fst-italic">Onion & capsicum pizza is a type of pizza topped with slices of onions & bell peppers, combined with other ingredients like cheese, tomato sauce, and additional toppings, creating a delicious and colorful flavor combination.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane fade show p-0">
+                            <div class="row g-4">
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/masala d.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Masala Dosa</span>
+                                                <span class="text-primary">₹ 120</span>
+                                            </h5>
+                                            <small class="fst-italic">Masala dosa is a popular South Indian dish that consists of a thin and crispy fermented rice and lentil crepe, filled with a spiced potato mixture. It's often served with coconut chutney and sambar (a tangy lentil-based vegetable stew), making it a flavorful and satisfying meal.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/palak p.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Palak Paneer</span>
+                                                <span class="text-primary">₹ 130</span>
+                                            </h5>
+                                            <small class="fst-italic">Palak paneer is a North Indian dish made from fresh spinach (palak) and paneer (Indian cottage cheese), cooked together in a creamy and flavorful spiced gravy. It's a nutritious and popular vegetarian dish often served with rice or Indian bread such as naan or roti.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/kadai p.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Kadhai Paneer</span>
+                                                <span class="text-primary">₹ 110</span>
+                                            </h5>
+                                            <small class="fst-italic">Kadhai Paneer is a North Indian dish where paneer (Indian cottage cheese) is cooked with a mix of onions, bell peppers, tomatoes, and aromatic spices in a "kadhai" or wok-style cooking. It's a flavorful and slightly spicy dish often enjoyed with Indian bread or rice.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/aloo.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Aloo Paratha</span>
+                                                <span class="text-primary">₹ 50</span>
+                                            </h5>
+                                            <small class="fst-italic">Aloo paratha is a popular Indian bread made by stuffing whole wheat dough with a spiced mixture of mashed potatoes (aloo). It's then rolled out and cooked on a griddle with ghee or oil until golden and crispy, often served with yogurt, pickles, or chutney.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/malai k.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Malai Kofta</span>
+                                                <span class="text-primary">₹ 135</span>
+                                            </h5>
+                                            <small class="fst-italic">Malai kofta is a rich and creamy North Indian dish where deep-fried vegetable or paneer (Indian cottage cheese) balls are served in a flavorful tomato-based gravy. The gravy is typically made with cream, nuts, and aromatic spices, creating a luxurious and indulgent dish often enjoyed with naan or rice.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/mushroom.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Veg Mushroom</span>
+                                                <span class="text-primary">₹ 130</span>
+                                            </h5>
+                                            <small class="fst-italic">Veg include mushrooms as a primary ingredient in a vegetarian context. Mushrooms are often used in various cuisines to create flavorful and hearty dishes like mushroom stir-fry, mushroom risotto, mushroom pasta, and mushroom curry, among others.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/veg b.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Veg Biriyani</span>
+                                                <span class="text-primary">₹ 95</span>
+                                            </h5>
+                                            <small class="fst-italic">Veg biryani is a fragrant and flavorful Indian rice dish made with basmati rice, mixed vegetables, aromatic spices, and herbs.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/spec T.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Special Thali</span>
+                                                <span class="text-primary">₹ 100</span>
+                                            </h5>
+                                            <small class="fst-italic">The Thali offers a diverse and balanced culinary experience, showcasing the rich flavors and textures of different Indian dishes in a single meal.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane fade show p-0">
+                            <div class="row g-4">
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/cold.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Cold Coffee</span>
+                                                <span class="text-primary">₹ 60</span>
+                                            </h5>
+                                            <small class="fst-italic">Cold coffee is a refreshing beverage made by blending or mixing chilled coffee with milk, sugar, and often ice. It's a popular drink, particularly during warmer weather, and can be customized with flavors like vanilla, chocolate, or caramel and topped with whipped cream or a dusting of cocoa powder.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/straw s.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Strawberry Shake</span>
+                                                <span class="text-primary">₹ 70</span>
+                                            </h5>
+                                            <small class="fst-italic">A strawberry shake is a sweet and creamy beverage made by blending fresh or frozen strawberries with milk, ice cream, or yogurt. It's a popular fruity treat enjoyed for its refreshing taste and smooth texture, often garnished with whipped cream or strawberry slices.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/hot c.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Hot Chocolate</span>
+                                                <span class="text-primary">₹ 50</span>
+                                            </h5>
+                                            <small class="fst-italic">Hot chocolate is a comforting drink made from melted chocolate or cocoa powder mixed with hot milk or water. Whipped cream, marshmallows, or a sprinkle of cocoa powder are common toppings for this warming beverage, especially during colder months.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/choc s.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Chocolate Shake</span>
+                                                <span class="text-primary">₹ 80</span>
+                                            </h5>
+                                            <small class="fst-italic">A chocolate shake is a creamy and indulgent beverage made by blending chocolate syrup, cocoa powder, or melted chocolate with milk and often ice cream. It results in a rich and sweet drink that's beloved for its chocolatey flavor and smooth consistency.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/oreo s.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Oreo Shake</span>
+                                                <span class="text-primary">₹ 80</span>
+                                            </h5>
+                                            <small class="fst-italic">An Oreo shake is a delicious beverage made by blending Oreo cookies, usually along with milk and ice cream, to create a creamy and flavorful drink. The cookies add a distinctive chocolatey and cookies-and-cream taste, making it a popular treat enjoyed by many.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/vanila.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Vanilla Shake</span>
+                                                <span class="text-primary">₹ 80</span>
+                                            </h5>
+                                            <small class="fst-italic">A vanilla shake is a classic beverage made by blending vanilla-flavored ice cream with milk. It results in a smooth and creamy drink with a sweet and comforting vanilla taste. Vanilla shakes are versatile and can be customized with various toppings or additional flavors for a delightful treat.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/rasmalai.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Rasmalai</span>
+                                                <span class="text-primary">₹ 60</span>
+                                            </h5>
+                                            <small class="fst-italic">Rasmalai is a popular Indian dessert made from soft paneer dumplings that are soaked in a creamy and sweetened milk syrup infused with cardamom and saffron. It's a rich and indulgent treat often garnished with chopped nuts, making it a favorite on special occasions and celebrations.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="img/moj.jpg" alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>Mojito</span>
+                                                <span class="text-primary">₹ 65</span>
+                                            </h5>
+                                            <small class="fst-italic">A mojito is a refreshing cocktail made with white rum, fresh mint leaves, lime juice, sugar, and soda water. It's a popular drink known for its zesty and minty flavor, often served over ice in a highball glass, making it a perfect choice for cooling off on a warm day.
+
+
+
+
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Menu End -->
+
+
+        <!-- Reservation Start -->
+        <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <div class="video">
+                        <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://biteable.com/watch/embed/3977994/4ba8df93bde9a774aef958fe84d1befd" data-bs-target="#videoModal">
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 bg-dark d-flex align-items-center">
+                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
+                        <h5 class="section-title ff-secondary text-start fw-normal" style="color: red;">
+                            Online Booking
+                        </h5>
+                        
+                        <h1 class="text-white mb-4">Book A Table Online</h1>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <label for="name">Your Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <label for="email">Your Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating date" id="date3" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                                        <label for="datetime">Date & Time</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <label for="email">No. of People</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                        <label for="message">Special Request</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Book Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="" id="exampleModalLabel">Promo Video</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <!-- 16:9 aspect ratio -->
+                        <div class="ratio ratio-16x9">
+                            <iframe class="" src="" id="video" allowfullscreen allowscriptaccess=""
+                                allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reservation Start -->
+
+
+        <!-- Team Start -->
+        <div class="container-xxl pt-5 pb-3">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center fw-normal" style="color: red;">
+                        Culinary Team
+                    </h5>
+                    
+                    <h1 class="mb-5">Our Master Chefs</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-1.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Abhinandan Kumar</h5>
+                            <small>15+ Years of Experience</small>
+                            <div class="d-flex justify-content-center mt-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-2.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Niharika Jain</h5>
+                            <small>14+ Years of Experience</small>
+                            <div class="d-flex justify-content-center mt-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-3.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Vikash Kushwaha</h5>
+                            <small>12+ Years of Experience</small>
+                            <div class="d-flex justify-content-center mt-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="img/team-4.jpg" alt="">
+                            </div>
+                            <h5 class="mb-0">Satyam Shivam Singh</h5>
+                            <small>10+ Years of Experience</small>
+                            <div class="d-flex justify-content-center mt-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
+
+
+        <!-- Testimonial Start -->
+        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="text-center">
+                    <h5 class="section-title ff-secondary text-center fw-normal" style="color: red;">
+                        Testimonial
+                    </h5>
+                    
+                    <h1 class="mb-5">Customer Experiences</h1>
+                </div>
+                <div class="owl-carousel testimonial-carousel">
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <i i class='fa fa-3x fa-quote-left' style='color: blue' text-primary mb-3></i>
+                        <p>I had an incredible dining experience. The ambiance was charming, and the service was impeccable. From the moment I walked in, I felt welcomed by the friendly staff. The menu offered a diverse range of options, and I decided to try the White Sauce Pasta, which turned out to be a true culinary delight. The Flavors were exceptional, and the presentation was artful.</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-1.jpg" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Naina</h5>
+                                <small>Professor</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <i i class='fa fa-3x fa-quote-left' style='color: blue' text-primary mb-3></i>
+                        <p>It has a great user interface and the service is at par with its other counterparts. I have visited the restaurant and had an amazing experience! The ambiance was cozy and inviting, the staff was attentive and friendly
+                            The variety of food options that can be ordered through this app is awesome.
+                            Easy to use for online delivery. Best and easy mechanism among competitior</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-2.jpg" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Mr. Magic</h5>
+                                <small>Influencer</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <i i class='fa fa-3x fa-quote-left' style='color: blue' text-primary mb-3></i>
+                        <p class="red-text">The user interface is also very nice and easy to use. It provides the fastest delivery at the right location.
+                            It saves the time and we can enjoy the delicious food while sitting in the home .
+                            You can see the live status of your order starting from the restaurant has accepted the order or not, 
+                            The food preparation has been started or not, the delivery boy location etc.</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-3.jpg" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Abhiranjan</h5>
+                                <small>Doctor</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-transparent border rounded p-4">
+                        <i i class='fa fa-3x fa-quote-left' style='color: blue' text-primary mb-3></i>
+                        <p>This is very easy to use and provides the fastest delivery at the right location. One can easily select their choice of food using the different categorization options available. The ratings of the restaurants make it easy to pick the best one. They have a great customer care service if you face any issues. I have been using it from several years and not faced any issue.</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-4.jpg" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Akansha</h5>
+                                <small>Developer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+        
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            The Downtown Cafe
+                        </h4>
+                        <a class="btn btn-link" href="about.html" class="nav-item nav-link">About Us</a>
+                        <a class="btn btn-link" href="contact.html" class="nav-item nav-link">Contact Us</a>
+                        <a class="btn btn-link" href="booking.html" class="dropdown-item">Reservation</a>
+                        <a class="btn btn-link" href="img/PP.pdf">Privacy Policy</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            Contact
+                        </h4>
+                        <p class="mb-2" style="color: rgb(7, 158, 158);">
+                            <i class="fa fa-map-marker-alt me-3"></i>Patna, Bihar, India
+                        </p>
+                        
+                        <p class="mb-2" style="color: rgb(7, 158, 158);">
+                            <i class="fa fa-phone-alt me-3"></i>+911234567890
+                        </p>
+                        
+                        <p class="mb-2" style="color: rgb(7, 158, 158);">
+                            <i class="fa fa-envelope me-3"></i>mrmagic@gmail.com
+                        </p>
+                        
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/abhii1402"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://instagram.com/_abhinandan.official?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com/in/abhinandan1412/"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            Timings
+                        </h4>
+
+                        <p class="mb-2" style="color: rgb(179, 28, 5);">
+                            <i class=""></i>Monday - Saturday
+                        </p>
+                        <p style="color: rgb(7, 158, 158);">09AM - 04AM</p>
+                        <p class="mb-2" style="color: rgb(179, 28, 5);">
+                            <i class=""></i>Sunday
+                        </p>
+                        <p style="color: rgb(7, 158, 158);">10AM - 02AM</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            Get in Touch
+                        </h4>
+                        <p style="color: rgb(7, 158, 158);">
+                            Don't miss out on any future updates, events, or exclusive offers. Subscribe to our newsletter to stay in the loop!
+                        </p>
+                        
+                        <div class="position-relative mx-auto" style="max-width: 400px;">
+                            <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="#">The Downtown Cafe</a>, All Right Reserved. 
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+<style>
+  body {
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .dark-mode {
+    background-color: #020000;
+    color: #770202;
+  }
+
+  .light-mode {
+    background-color: #f4f8f3;
+    color: #d908b3;
+  }
+
+  .toggle-container {
+    display: flex;
+    align-items: left;
+    margin-top: 10px;
+  }
+
+  .toggle-label {
+    margin-right: 5px;
+  }
+</style>
+</head>
+
+<script>
+  const body = document.body;
+    const themeToggle = document.querySelector('.theme-toggle');
+
+    themeToggle.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+    });
+</script>
+<script>
+    const hour = document.querySelector('.hour');
+    const minute = document.querySelector('.minute');
+    const minutes = document.querySelector('.minutes');
+    const seconds = document.querySelector('.seconds');
+
+    // Create spikes
+    for (let s = 0; s < 60; s++) {
+      let mSpikeEl = document.createElement('i');
+      let sSpikeEl = document.createElement('i');
+      mSpikeEl.className = 'spike';
+      sSpikeEl.className = 'spike';
+      mSpikeEl.style = `--rotate:${6 * s}deg`;
+      sSpikeEl.style = `--rotate:${6 * s}deg`;
+      mSpikeEl.setAttribute('data-i', s);
+      sSpikeEl.setAttribute('data-i', s);
+
+      seconds.append(sSpikeEl);
+      minutes.append(mSpikeEl);
+    }
+
+    function getTime() {
+      let date = new Date();
+      let s = date.getSeconds();
+      let m = date.getMinutes();
+      let h = date.getHours(); // Convert to 12-hour format
+
+      hour.textContent = h;
+      minute.textContent = m;
+
+      minutes.style = `--dRotate:${6 * m}deg`;
+
+      if (s === 0) {
+        seconds.classList.add('stop-anim');
+      } else {
+        seconds.classList.remove('stop-anim');
+      }
+      if (m === 0) {
+        minutes.classList.add('stop-anim');
+      } else {
+        minutes.classList.remove('stop-anim');
+      }
+
+      seconds.style = `--dRotate:${6 * s}deg`;
+    }
+
+    setInterval(getTime, 1000);
+    getTime();
+  </script>
+</body>
+
+</html>

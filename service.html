@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>The Downtown Cafe</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <style>
+        body {
+          
+          transition: background-color 0.3s, color 0.3s;
+        }
+      
+        .dark-mode {
+          background-color: #d20505;
+          color: #571301;
+        }
+      
+        .light-mode {
+          background-color: #ffffff;
+          color: #860404;
+        }
+      
+        .toggle-container {
+          display: flex;
+          align-items: center;
+          margin-top: 20px;
+        }
+      
+        .toggle-label {
+          margin-left: 50px;
+        }
+    </style>
+</head>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <body class="light-mode">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0">
+                        <i class='fa fa-1x fa-utensils' style='color: red'></i>
+                        <span style='color: rgb(51, 207, 207)'>The Downtown Cafe</span>
+                    </h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="service.html" class="nav-item nav-link active">Service</a>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="menu.html" class="nav-item nav-link">Menu</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="img\menu.pdf" class="dropdown-item">All Menu List</a>
+                                <a href="booking.html" class="dropdown-item">Booking</a>
+                                <a href="team.html" class="dropdown-item">Our Team</a>
+                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div><a href="booking.html" class="btn btn-primary py-0 px-0">Book A Table</a></div>
+               
+                    <div class="toggle-label"></div>
+                        <label class="switch">
+                            <div>
+                                <button class="theme-toggle py-0 px-0" style="color: rgb(97, 2, 2); background-color: rgb(193, 17, 17); border-color: rgb(173, 40, 40);">
+                                    Switch Theme
+                                </button>
+                            </div>
+                            
+                            
+                        <span class="slider"></span>
+                        </label>
+                        <audio id="myAudio" autoplay>
+                            <source src="img/MLC.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        
+                        <script>
+                        const audioElement = document.getElementById('myAudio');
+                        
+                        // Set a listener for the 'ended' event to start playing from the 10-second mark
+                        audioElement.addEventListener('ended', function() {
+                            // After the second play-through, start from the 10-second mark
+                            audioElement.currentTime = 6;
+                            audioElement.play();
+                            
+
+                            
+                        });
+                        </script>
+                    </div>
+                </div>
+            </nav>
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="section-title ff-secondary text-center fw-normal" style="color: red;">Our Services</h1>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i class='fa fa-3x fa-user-circle' style='color: rgb(57, 7, 137)' text-primary mb-4></i>
+                                <h5>Our Master Chefs</h5>
+                                <p>Meet the talented individuals behind the scenes who bring magic to your dining experience. Our chefs are passionate about their craft, creating dishes that reflect their dedication to culinary artistry. Our front-of-house team takes pride in providing impeccable service, ensuring your comfort and satisfaction throughout your visit.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i i class='fa fa-3x fa-utensils' style='color: red'  text-primary mb-4></i>
+                                <h5>Quality Food</h5>
+                                <p> we take immense pride in the quality of food we serve. From the moment our chefs select the freshest ingredients to the meticulous preparation of each dish, our commitment to excellence shines through in every bite. We believe that the foundation of a remarkable dining experience  and a passion for culinary artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i i class='fa fa-3x fa-cart-plus' style='color: blue' text-primary mb-4></i>
+                                <h5>Online Order</h5>
+                                <p>Whether you're planning a cozy night in, hosting a small gathering, or simply craving your favorite dish, our online ordering platform makes it easy to satisfy your hunger cravings with just a few clicks. Our dedicated staff ensures that your order is carefully packaged and ready for delivery while adhering all necessary & safety guidelines.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="service-item rounded pt-3">
+                            <div class="p-4">
+                                <i class='fa fa-3x fa-phone-volume' style='color: rgb(154, 124, 5)' text-primary mb-4></i>
+                                <h5>24/7 Service</h5>
+                                <p>We understand that cravings can strike at any hour, and that's why we are proud to offer our top-notch service around the clock. Whether it's an early morning breakfast, a late-night snack, or anything in between, we've got you covered! With our user-friendly online ordering platform, you can place your order 24/7.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+        
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            The Downtown Cafe
+                        </h4>
+                        <a class="btn btn-link" href="about.html" class="nav-item nav-link">About Us</a>
+                        <a class="btn btn-link" href="contact.html" class="nav-item nav-link">Contact Us</a>
+                        <a class="btn btn-link" href="booking.html" class="dropdown-item">Reservation</a>
+                        <a class="btn btn-link" href="img/PP.pdf">Privacy Policy</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            Contact
+                        </h4>
+                        <p class="mb-2" style="color: rgb(7, 158, 158);">
+                            <i class="fa fa-map-marker-alt me-3"></i>Patna, Bihar, India
+                        </p>
+                        
+                        <p class="mb-2" style="color: rgb(7, 158, 158);">
+                            <i class="fa fa-phone-alt me-3"></i>+911234567890
+                        </p>
+                        
+                        <p class="mb-2" style="color: rgb(7, 158, 158);">
+                            <i class="fa fa-envelope me-3"></i>mrmagic@gmail.com
+                        </p>
+                        
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/abhii1402"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://instagram.com/_abhinandan.official?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com/in/abhinandan1412/"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            Timings
+                        </h4>
+
+                        <p class="mb-2" style="color: rgb(179, 28, 5);">
+                            <i class=""></i>Monday - Saturday
+                        </p>
+                        <p style="color: rgb(7, 158, 158);">09AM - 04AM</p>
+                        <p class="mb-2" style="color: rgb(179, 28, 5);">
+                            <i class=""></i>Sunday
+                        </p>
+                        <p style="color: rgb(7, 158, 158);">10AM - 02AM</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start fw-normal mb-4" style="color: red;">
+                            Get in Touch
+                        </h4>
+                        <p style="color: rgb(7, 158, 158);">
+                            Don't miss out on any future updates, events, or exclusive offers. Subscribe to our newsletter to stay in the loop!
+                        </p>
+                        
+                        <div class="position-relative mx-auto" style="max-width: 400px;">
+                            <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="#">The Downtown Cafe</a>, All Right Reserved. 
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+<style>
+  body {
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .dark-mode {
+    background-color: #020000;
+    color: #7d9e03;
+  }
+
+  .light-mode {
+    background-color: #f4f8f3;
+    color: #035a75;
+  }
+
+  .toggle-container {
+    display: flex;
+    align-items: left;
+    margin-top: 10px;
+  }
+
+  .toggle-label {
+    margin-right: 5px;
+  }
+</style>
+</head>
+
+<script>
+  const body = document.body;
+    const themeToggle = document.querySelector('.theme-toggle');
+
+    themeToggle.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+    });
+</script>
+</body>
+
+</html>
